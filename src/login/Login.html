@@ -1,0 +1,31 @@
+<div class="p-grid p-flex-column p-ai-center vertical-container" style="height: 100%;">
+    <div class="p-col-12" style="height: 30%;">
+    </div>
+    <div class="p-col-12" style="height: 40%;">
+        <div class="p-grid p-flex-row-reverse">
+            <div class="p-col-4">
+            </div>
+            <div class="p-col-4">
+                <form id="loginForm" @submit="checkForm" method="post">
+                    <div class="p-fluid">
+                        <div class="p-field p-box">
+                            <label for="userLogin">Login</label>
+                            <InputText id="userLogin" v-model="login" type="text" />
+                        </div>
+                    </div>
+                    <div class="p-fluid">
+                        <div class="p-field p-box">
+                            <label for="userPassword">Password</label>
+                            <Password id="userPassword" v-model="password" :feedback="false" />
+                        </div>
+                    </div>   
+                    <Button  type="submit" label="Log In" />
+                </form>
+            </div>
+            <div class="p-col-4">
+            </div>
+        </div>
+    </div>
+    <div class="p-col-12" style="height: 30%;">
+    </div>
+</div>
