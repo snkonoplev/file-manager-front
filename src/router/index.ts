@@ -29,7 +29,7 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  if (to.name != 'Login' && !store.getters.IS_AUTHENTICATED) {
+  if (to.name != 'Login' && !store.getters['login/isAuthenticated']) {
     next({ name: 'Login' })
   } else {
     next()

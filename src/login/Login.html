@@ -6,21 +6,35 @@
             <div class="p-col-4">
             </div>
             <div class="p-col-4">
-                <form id="loginForm" @submit="checkForm" method="post">
-                    <div class="p-fluid">
-                        <div class="p-field p-box">
-                            <label for="userLogin">Login</label>
-                            <InputText id="userLogin" v-model="login" type="text" />
-                        </div>
+                <div class="p-d-flex p-jc-center">
+                    <div class="card">
+                        <form id="loginForm" @submit.prevent="sendForm" method="post">
+                            <div class="p-field">
+                                <div class="p-float-label">
+                                    <InputText @keyup.enter="sendForm" id="userLogin" v-model="v$.form.username.$model"
+                                        :class="{ 'p-invalid': v$.form.username.$errors.length }"
+                                        style="width: 100%;" />
+                                    <label for="userLogin">Login</label>
+                                </div>
+                                <small v-for="(error, index) of v$.form.username.$errors" :key="index"
+                                    class="p-error">{{
+                                    error.$message }}</small>
+                            </div>
+                            <div class="p-field p-mt-4">
+                                <div class="p-float-label">
+                                    <Password id="userPassword" @keyup.enter="sendForm"
+                                        v-model="v$.form.password.$model" :feedback="false"
+                                        :class="{ 'p-invalid': v$.form.password.$errors.length }"
+                                        style="width: 100%;" />
+                                    <label for="userPassword">Password</label>
+                                </div>
+                                <small v-for="(error, index) of v$.form.password.$errors" :key="index"
+                                    class="p-error">{{ error.$message }}</small>
+                            </div>
+                            <Button :disabled="v$.form.$invalid" type="submit" label="Log In" />
+                        </form>
                     </div>
-                    <div class="p-fluid">
-                        <div class="p-field p-box">
-                            <label for="userPassword">Password</label>
-                            <Password id="userPassword" v-model="password" :feedback="false" />
-                        </div>
-                    </div>   
-                    <Button  type="submit" label="Log In" />
-                </form>
+                </div>
             </div>
             <div class="p-col-4">
             </div>
