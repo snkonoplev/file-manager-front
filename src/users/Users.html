@@ -2,12 +2,12 @@
     <DataTable :value="users" responsiveLayout="scroll">
         <template #header>
             <div class="p-d-flex p-jc-between p-ai-center">
-               <h5 class="p-m-0">Users</h5>
+                <h5 class="p-m-0">Users</h5>
             </div>
-       </template>
-       <template #empty>
-           No customers found.
-       </template>
+        </template>
+        <template #empty>
+            No customers found.
+        </template>
         <Column field="id" header="Id"></Column>
         <Column field="created" header="Created">
             <template #body="{data}">
@@ -20,7 +20,15 @@
             </template>
         </Column>
         <Column field="name" header="Name"></Column>
-        <Column field="isAdmin" header="Admin"></Column>
-        <Column field="isActive" header="Active"></Column>
+        <Column field="isAdmin" header="Admin">
+            <template #body="{data}">
+                <Checkbox v-model="data.isAdmin" :binary="true" :disabled="true" />
+            </template>
+        </Column>
+        <Column field="isActive" header="Active">
+            <template #body="{data}">
+                <Checkbox v-model="data.isActive" :binary="true" :disabled="true" />
+            </template>
+        </Column>
     </DataTable>
 </div>

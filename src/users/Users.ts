@@ -4,11 +4,13 @@ import Column from 'primevue/column';
 import { User } from './User';
 import UsersService from './UsersService';
 import moment from 'moment';
+import Checkbox from 'primevue/checkbox';
 
 @Options({
     components: {
         DataTable,
-        Column
+        Column,
+        Checkbox
     }
 })
 export default class Users extends Vue {
