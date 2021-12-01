@@ -1,5 +1,5 @@
 import { GetterTree, MutationTree, ActionTree } from 'vuex';
-import { User } from '../services/User';
+import { User } from '../users/User';
 
 class LoginStore {
     token?: string;

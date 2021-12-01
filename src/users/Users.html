@@ -1,0 +1,26 @@
+<div>
+    <DataTable :value="users" responsiveLayout="scroll">
+        <template #header>
+            <div class="p-d-flex p-jc-between p-ai-center">
+               <h5 class="p-m-0">Users</h5>
+            </div>
+       </template>
+       <template #empty>
+           No customers found.
+       </template>
+        <Column field="id" header="Id"></Column>
+        <Column field="created" header="Created">
+            <template #body="{data}">
+                {{dateTime(data.created)}}
+            </template>
+        </Column>
+        <Column field="lastLogin" header="Last Login">
+            <template #body="{data}">
+                {{dateTime(data.lastLogin)}}
+            </template>
+        </Column>
+        <Column field="name" header="Name"></Column>
+        <Column field="isAdmin" header="Admin"></Column>
+        <Column field="isActive" header="Active"></Column>
+    </DataTable>
+</div>

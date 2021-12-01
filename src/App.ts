@@ -1,7 +1,7 @@
 import { Options, Vue } from 'vue-class-component';
 import Menubar from 'primevue/menubar';
 import store from './store';
-import { User } from './services/User';
+import { User } from './users/User';
 import Chip from 'primevue/chip';
 
 @Options({
@@ -24,11 +24,26 @@ import Chip from 'primevue/chip';
             return {};
          }
       }
+   },
+   watch: {
+      $route(to): void {
+         if (to?.name) {
+            this.currentRote = to.name;
+         }
+      }
    }
 })
 export default class App extends Vue {
 
+   public currentRote = '';
+
    public items = [
+      {
+         label: 'Users',
+         icon: 'pi pi-fw pi-users',
+         to: '/users',
+         disabled: (): boolean => this.currentRote === 'Users'
+      },
       {
          label: 'Quit',
          icon: 'pi pi-fw pi-power-off',
@@ -37,8 +52,7 @@ export default class App extends Vue {
             this.clearToken();
          },
       }
-   ]
-
+   ];
 
    public clearToken(): void {
       store.dispatch('login/removeToken');

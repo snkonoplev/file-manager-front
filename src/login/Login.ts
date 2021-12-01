@@ -4,7 +4,8 @@ import Password from 'primevue/password';
 import Button from 'primevue/button';
 import { required, minLength } from '@vuelidate/validators'
 import useVuelidate from '@vuelidate/core'
-import LoginService from '../services/LoginService';
+import LoginService from './LoginService';
+import UsersService from '../users/UsersService';
 import { LoginModel } from '../models/login';
 import store from '../store';
 import Image from 'primevue/image';
@@ -39,14 +40,11 @@ export default class Login extends Vue {
       const loader = this.$loading.show();
       LoginService.Login(this.form).then(r => {
          store.dispatch('login/setToken', r.data);
-
       }).then(() => {
-         return LoginService.Current();
+         return UsersService.Current();
       }).then(r => {
          store.dispatch('login/setCurrentUser', r.data);
-         this.$router.push({name: 'Home'});
-      })
-
-         .finally(() => loader.hide());
+         this.$router.push({ name: 'Users' });
+      }).finally(() => loader.hide());
    }
 }
