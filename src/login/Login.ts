@@ -7,12 +7,14 @@ import useVuelidate from '@vuelidate/core'
 import LoginService from '../services/LoginService';
 import { LoginModel } from '../models/login';
 import store from '../store';
+import Image from 'primevue/image';
 
 @Options({
    components: {
       InputText,
       Password,
-      Button
+      Button,
+      Image
    },
    validations: {
       form: {
@@ -34,9 +36,17 @@ export default class Login extends Vue {
    v$ = useVuelidate();
 
    public sendForm(): void {
+      const loader = this.$loading.show();
       LoginService.Login(this.form).then(r => {
-         store.dispatch('login/setToken', r.data);        
-         this.$router.push({ name: 'Home' });
-      });
+         store.dispatch('login/setToken', r.data);
+
+      }).then(() => {
+         return LoginService.Current();
+      }).then(r => {
+         store.dispatch('login/setCurrentUser', r.data);
+         this.$router.push({name: 'Home'});
+      })
+
+         .finally(() => loader.hide());
    }
 }

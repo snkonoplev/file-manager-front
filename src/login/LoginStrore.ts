@@ -1,8 +1,10 @@
 import { GetterTree, MutationTree, ActionTree } from 'vuex';
+import { User } from '../services/User';
 
 class LoginStore {
     token?: string;
     expire?: number;
+    currentUser?: User;
 }
 
 const mutations = <MutationTree<LoginStore>>{
@@ -13,6 +15,10 @@ const mutations = <MutationTree<LoginStore>>{
     removeToken(state): void {
         state.token = undefined;
         state.expire = undefined;
+        state.currentUser = undefined;
+    },
+    setCurrentUser(state, payload): void {
+        state.currentUser = payload;
     }
 };
 
@@ -23,7 +29,10 @@ const actions = <ActionTree<LoginStore, any>>{
     },
     removeToken(context) {
         context.commit('removeToken');
-    }
+    },
+    setCurrentUser(context, payload) {
+        context.commit('setCurrentUser', payload);
+    }    
 };
 
 // eslint-disable-next-line
@@ -39,6 +48,9 @@ const getters = <GetterTree<LoginStore, any>>{
         const dateValid = state.expire !== undefined && state.expire > new Date().valueOf();
         
         return tokenValid && dateValid;
+    },
+    getCurrentUser(state): User | undefined {
+        return state.currentUser;
     }
 };
 

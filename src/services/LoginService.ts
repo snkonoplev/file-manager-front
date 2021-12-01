@@ -1,6 +1,7 @@
 import axios, { AxiosResponse } from 'axios';
 import { LoginResponseModel } from '../models/LoginResponse';
 import { LoginModel } from '../models/login';
+import { User } from './User';
 
 class LoginService {
 
@@ -8,7 +9,7 @@ class LoginService {
         return axios.post('/login', model);
     }
 
-    public Current(): Promise<AxiosResponse<any>> {
+    public Current(): Promise<AxiosResponse<User>> {
         return axios.get('/users/current');
     }
 }
