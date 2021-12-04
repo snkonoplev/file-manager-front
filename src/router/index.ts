@@ -4,14 +4,19 @@ import store from '../store'
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/users',
-    name: 'Users',    
+    name: 'Users',
     component: () => import(/* webpackChunkName: "users" */ '../users/Users.vue')
   },
   {
     path: '/login',
     name: 'Login',
     component: () => import(/* webpackChunkName: "login" */ '../login/Login.vue')
-  }
+  },
+  {
+    path: '/users/create',
+    name: 'UserCreate',
+    component: () => import(/* webpackChunkName: "user-create" */ '../users/create/UserCreate.vue')
+  },
 ]
 
 const router = createRouter({

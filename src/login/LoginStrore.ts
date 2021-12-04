@@ -10,7 +10,7 @@ class LoginStore {
 const mutations = <MutationTree<LoginStore>>{
     setToken(state, payload): void {
         state.token = payload.token;
-        state.expire = Date.parse(payload.expire);
+        state.expire = new Date(payload.expire).valueOf();
     },
     removeToken(state): void {
         state.token = undefined;

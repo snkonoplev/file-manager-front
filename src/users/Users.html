@@ -1,8 +1,13 @@
 <div>
+    <Toolbar class="p-mb-4">
+        <template #start>
+            <Button label="New" icon="pi pi-plus" class="p-button-success p-mr-2" @click="openNew" />           
+        </template>
+    </Toolbar>
     <DataTable :value="users" responsiveLayout="scroll">
         <template #header>
             <div class="p-d-flex p-jc-between p-ai-center">
-                <h5 class="p-m-0">Users</h5>
+                <h3 class="p-mb-2 p-m-md-0 p-as-md-center">Users</h3>
             </div>
         </template>
         <template #empty>
@@ -30,5 +35,5 @@
                 <Checkbox v-model="data.isActive" :binary="true" :disabled="true" />
             </template>
         </Column>
-    </DataTable>
+    </DataTable>   
 </div>

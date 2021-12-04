@@ -5,4 +5,5 @@ export class User {
     name?: string;
     isAdmin?: boolean;
     isActive?: boolean;
+    password?: string;
 }

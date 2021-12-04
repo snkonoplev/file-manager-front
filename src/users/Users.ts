@@ -5,12 +5,16 @@ import { User } from './User';
 import UsersService from './UsersService';
 import moment from 'moment';
 import Checkbox from 'primevue/checkbox';
+import Toolbar from 'primevue/toolbar';
+import Button from 'primevue/button';
 
 @Options({
     components: {
         DataTable,
         Column,
-        Checkbox
+        Checkbox,
+        Toolbar,
+        Button
     }
 })
 export default class Users extends Vue {
@@ -29,5 +33,9 @@ export default class Users extends Vue {
             return '';
 
         return moment.unix(timeStamp).format('DD.MM.YYYY HH:mm:ss');
+    }
+
+    public openNew(): void {
+        this.$router.push({name: 'UserCreate'});
     }
 }

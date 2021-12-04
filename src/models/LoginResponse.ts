@@ -1,5 +1,5 @@
 export class LoginResponseModel {
     code?: string;
-    expire?: Date;
+    expire?: number;
     token?: string;
 }

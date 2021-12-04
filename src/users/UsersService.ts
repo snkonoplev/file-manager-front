@@ -7,8 +7,12 @@ class UsersService {
         return axios.get('/users/current');
     }
 
-    public List(): Promise<AxiosResponse<User[]>>{
+    public List(): Promise<AxiosResponse<User[]>> {
         return axios.get('/users');
+    }
+
+    public Create(user: User): Promise<AxiosResponse<number>> {
+        return axios.post('/users', user);
     }
 }
 

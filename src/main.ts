@@ -15,7 +15,7 @@ import 'primevue/resources/themes/saga-blue/theme.css'
 import 'primeicons/primeicons.css'
 
 axios.defaults.withCredentials = true;
-axios.defaults.baseURL = 'http://localhost:5000/';
+axios.defaults.baseURL = process.env.NODE_ENV === 'development' ? 'http://localhost:5000/api/' : '/api/';
 axios.interceptors.request.use(function (config) {
     const token = store.getters['login/getToken'];
     if (token && config.headers) {
@@ -29,7 +29,18 @@ axios.interceptors.request.use(function (config) {
 axios.interceptors.response.use(function (response) {
     return response;
 }, function (error) {
-    notify({ type: 'error', title: 'HTTP Response Error', text: error.message, duration: 10000 });
+    let message = error.message;
+
+    if (error.response?.data) {
+        message = error.response?.data;
+    }
+
+    notify({ type: 'error', title: 'HTTP Response Error', text: message, duration: 10000 });
+
+    if (error.code === 401) {
+        router.push({ name: 'Login' });
+    }
+
     return Promise.reject(error);
 });
 
