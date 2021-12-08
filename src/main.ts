@@ -6,9 +6,7 @@ import axios from 'axios';
 import PrimeVue from 'primevue/config';
 import Notifications from '@kyvg/vue3-notification'
 import { notify } from "@kyvg/vue3-notification";
-import VueLoading from 'vue-loading-overlay';
 
-import 'vue-loading-overlay/dist/vue-loading.css';
 import 'primeflex/primeflex.min.css';
 import 'primevue/resources/primevue.min.css'
 import 'primevue/resources/themes/saga-blue/theme.css'
@@ -50,5 +48,4 @@ app
     .use(router)
     .use(PrimeVue)
     .use(Notifications)
-    .use(VueLoading)
     .mount('#app');

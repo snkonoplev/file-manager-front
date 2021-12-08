@@ -5,7 +5,6 @@ import Button from 'primevue/button';
 import { required, minLength } from '@vuelidate/validators';
 import useVuelidate from '@vuelidate/core';
 import LoginService from './LoginService';
-import UsersService from '../users/UsersService';
 import { LoginModel } from '../models/Login';
 import store from '../store';
 import Image from 'primevue/image';
@@ -33,6 +32,7 @@ import Image from 'primevue/image';
 export default class Login extends Vue {
 
    public form: LoginModel = {}
+   public isLoading = false;
 
    v$ = useVuelidate();
 
@@ -41,27 +41,15 @@ export default class Login extends Vue {
    }
 
    public sendForm(): void {
-      const loader = this.$loading.show();
-      store.dispatch('login/removeToken');
+
+      this.isLoading = true;
+
       LoginService.Login(this.form)
          .then(r => {
             store.dispatch('login/setToken', r.data);
-         }, e => {
-            console.log('asd1');
-            throw(e);
-         })
-         .then(() => {
-            return UsersService.Current();
-         }, e => {
-            console.log('asd2');
-            throw(e);
-         })
-         .then(r => {
-            store.dispatch('login/setCurrentUser', r.data);
+         }).finally(() => {
+            this.isLoading = false;
             this.$router.push({ name: 'Users' });
-         }, e => {
-            console.log('asd3');
-            throw(e);
-         }).finally(() => loader.hide());
+         });
    }
 }

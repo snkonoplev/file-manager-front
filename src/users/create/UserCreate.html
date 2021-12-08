@@ -11,21 +11,21 @@
                             <span class="p-inputgroup-addon">
                                 <i class="pi pi-user"></i>
                             </span>
-                            <InputText placeholder="Username" v-model="v$.form.name.$model" />
+                            <InputText placeholder="Username" :disabled="isLoading" v-model="v$.form.name.$model" />
                         </div>
                     </div>
                     <div class="p-col-12 p-md-12">
                         <div class="p-inputgroup">
                             <span class="p-inputgroup-addon">
-                                <i class="pi pi-user"></i>
+                                <i class="pi pi-lock"></i>
                             </span>
-                            <Password placeholder="Password" v-model="v$.form.password.$model"/>
+                            <Password placeholder="Password" :disabled="isLoading" v-model="v$.form.password.$model"/>
                         </div>
                     </div>
                     <div class="p-col-12 p-md-12">
                         <div class="p-inputgroup">
                             <div class="p-field-checkbox">
-                                <Checkbox id="is_admin" v-model="form.isAdmin" :binary="true" />
+                                <Checkbox id="is_admin" v-model="form.isAdmin" :disabled="isLoading" :binary="true" />
                                 <label for="is_admin">Admin</label>
                             </div>
                         </div>
@@ -33,15 +33,18 @@
                     <div class="p-col-12 p-md-12">
                         <div class="p-inputgroup">
                             <div class="p-field-checkbox">
-                                <Checkbox id="is_active" v-model="form.isActive" :binary="true" />
+                                <Checkbox id="is_active" v-model="form.isActive" :disabled="isLoading" :binary="true" />
                                 <label for="is_active">Active</label>
                             </div>
                         </div>
                     </div>
                     <div class="p-col-12 p-md-5">
                     </div>
-                    <div class="p-col-12 p-md-2">
-                        <Button :disabled="v$.form.$invalid" type="submit" label="Create" />
+                    <div class="p-col-12 p-md-1">
+                        <Button :disabled="v$.form.$invalid" type="submit" label="Create" :loading="isLoading"/>
+                    </div>
+                    <div class="p-col-12 p-md-1">                       
+                        <Button label="Cancel" @click="cancel" />
                     </div>
                     <div class="p-col-12 p-md-5">
                     </div>

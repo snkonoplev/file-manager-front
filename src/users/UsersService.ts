@@ -12,7 +12,11 @@ class UsersService {
     }
 
     public Create(user: User): Promise<AxiosResponse<number>> {
-        return axios.post('/users', user);
+        return axios.post('/users', {...user});
+    }
+
+    public Delete(id: number): Promise<AxiosResponse<number>> {
+        return axios.delete(`/users/${id}`);
     }
 }
 

@@ -7,6 +7,7 @@ import moment from 'moment';
 import Checkbox from 'primevue/checkbox';
 import Toolbar from 'primevue/toolbar';
 import Button from 'primevue/button';
+import { AxiosResponse } from 'axios';
 
 @Options({
     components: {
@@ -20,12 +21,19 @@ import Button from 'primevue/button';
 export default class Users extends Vue {
 
     public users: User[] = [];
+    public isLoading = false;
+    public selectedUsers: User[] = [];
+    public deleteInProgress = false;
 
     public mounted(): void {
-        const loader = this.$loading.show();
+        this.reload();
+    }
+
+    public reload(): void {
+        this.isLoading = true;
         UsersService.List()
-            .then(r => this.users = r.data)
-            .finally(() => loader.hide());
+            .then(r => this.users = [...r.data])
+            .finally(() => this.isLoading = false);
     }
 
     public dateTime(timeStamp: number | null): string {
@@ -36,6 +44,35 @@ export default class Users extends Vue {
     }
 
     public openNew(): void {
-        this.$router.push({name: 'UserCreate'});
+        this.$router.push({ name: 'UserCreate' });
+    }
+
+    public deleteSelected(): void {
+        if (this.selectedUsers.length === 0) {
+            return;
+        }
+
+        this.deleteInProgress = true;
+        // eslint-disable-next-line
+        const promises: Promise<AxiosResponse<number, any>>[] = [];
+
+        this.selectedUsers.forEach(user => {
+
+            if (user.id != null) {
+                const p = UsersService.Delete(user.id);
+                promises.push(p);
+            }
+
+        });
+
+        Promise.all(promises).finally(() => {
+            this.deleteInProgress = false;
+            this.selectedUsers = [];
+            this.reload();
+        });
+    }
+
+    public editRow(event: any): void {
+        this.$router.push({ name: 'UserCreate' });
     }
 }

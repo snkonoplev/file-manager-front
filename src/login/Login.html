@@ -13,7 +13,7 @@
                             <div class="p-field">
                                 <div class="p-float-label">
                                     <InputText @keyup.enter="sendForm" id="userLogin" v-model="v$.form.username.$model"
-                                        :class="{ 'p-invalid': v$.form.username.$errors.length }"
+                                        :disabled="isLoading" :class="{ 'p-invalid': v$.form.username.$errors.length }"
                                         style="width: 100%;" />
                                     <label for="userLogin">Login</label>
                                 </div>
@@ -23,7 +23,7 @@
                             </div>
                             <div class="p-field p-mt-4">
                                 <div class="p-float-label">
-                                    <Password id="userPassword" @keyup.enter="sendForm"
+                                    <Password id="userPassword" @keyup.enter="sendForm" :disabled="isLoading"
                                         v-model="v$.form.password.$model" :feedback="false"
                                         :class="{ 'p-invalid': v$.form.password.$errors.length }"
                                         style="width: 100%;" />
@@ -32,7 +32,7 @@
                                 <small v-for="(error, index) of v$.form.password.$errors" :key="index"
                                     class="p-error">{{ error.$message }}</small>
                             </div>
-                            <Button :disabled="v$.form.$invalid" type="submit" label="Log In" />
+                            <Button :disabled="v$.form.$invalid" type="submit" label="Log In" :loading="isLoading" />
                         </form>
                     </div>
                 </div>

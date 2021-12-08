@@ -33,11 +33,16 @@ import UsersService from '../UsersService';
 export default class UserCreate extends Vue {
     v$ = useVuelidate();
     public form: User = {};
+    public isLoading = false;
 
     public sendForm(): void {
-        const loader = this.$loading.show();
+        this.isLoading = true;
         UsersService.Create(this.form)
             .then(() => this.$router.push({ name: 'Users' }))
-            .finally(() => loader.hide());
+            .finally(() => this.isLoading = false);
+    }
+
+    public cancel(): void {
+        this.$router.push({ name: 'Users' });
     }
 }
