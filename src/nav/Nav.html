@@ -4,7 +4,7 @@
             <img alt="logo" src="/logo.png" height="40" class="p-mr-2">
         </template>
         <template #end>
-            <Chip :label="currentUser.name" class="p-mr-2 p-mb-0" />           
+            <Button icon="pi pi-user" :label="currentUser.name" class="p-button-rounded p-button-info" @click="edit" />
         </template>
     </Menubar>
 </div>

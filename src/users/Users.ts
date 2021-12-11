@@ -7,7 +7,8 @@ import moment from 'moment';
 import Checkbox from 'primevue/checkbox';
 import Toolbar from 'primevue/toolbar';
 import Button from 'primevue/button';
-import { AxiosResponse } from 'axios';
+import Dialog from 'primevue/dialog';
+import store from '../store';
 
 @Options({
     components: {
@@ -15,15 +16,28 @@ import { AxiosResponse } from 'axios';
         Column,
         Checkbox,
         Toolbar,
-        Button
-    }
+        Button,
+        Dialog
+    },
+    computed: {
+        isAdmin: {
+            get(): boolean {
+                const currentUser = store.getters['login/getCurrentUser'];
+
+                if (currentUser && currentUser.isAdmin) {
+                    return true;
+                }
+                return false;
+            }
+        },
+    },
 })
 export default class Users extends Vue {
 
     public users: User[] = [];
     public isLoading = false;
-    public selectedUsers: User[] = [];
-    public deleteInProgress = false;
+    public selectedUser: User | undefined = undefined;
+    public deleteUsersDialog = false;
 
     public mounted(): void {
         this.reload();
@@ -47,32 +61,23 @@ export default class Users extends Vue {
         this.$router.push({ name: 'UserCreate' });
     }
 
-    public deleteSelected(): void {
-        if (this.selectedUsers.length === 0) {
-            return;
-        }
-
-        this.deleteInProgress = true;
-        // eslint-disable-next-line
-        const promises: Promise<AxiosResponse<number, any>>[] = [];
-
-        this.selectedUsers.forEach(user => {
-
-            if (user.id != null) {
-                const p = UsersService.Delete(user.id);
-                promises.push(p);
-            }
-
-        });
-
-        Promise.all(promises).finally(() => {
-            this.deleteInProgress = false;
-            this.selectedUsers = [];
-            this.reload();
-        });
+    public editUser(data: User): void {
+        this.$router.push({ name: 'UserEdit', params: { id: data.id } });
     }
 
-    public editRow(event: any): void {
-        this.$router.push({ name: 'UserCreate' });
+    public confirmDeleteUser(user: User): void {
+        this.selectedUser = user;
+        this.deleteUsersDialog = true;
+    }
+
+    public deleteUser(): void {
+        if (this.selectedUser && this.selectedUser.id) {
+            this.isLoading = true;
+            UsersService.Delete(this.selectedUser.id).finally(() => {
+                this.reload();
+                this.selectedUser = undefined;
+                this.deleteUsersDialog = false;
+            });
+        }
     }
 }

@@ -1,14 +1,14 @@
 import { Options, Vue } from 'vue-class-component';
 import Menubar from 'primevue/menubar';
+import Button from 'primevue/button';
 import store from '../store';
 import { User } from '../users/User';
-import Chip from 'primevue/chip';
 import UsersService from '../users/UsersService';
 
 @Options({
    components: {
       Menubar,
-      Chip
+      Button
    },
    watch: {
       $route(to): void {
@@ -45,9 +45,21 @@ export default class Nav extends Vue {
    }
 
    public mounted(): void {
+
+      const currentUser = store.getters['login/getCurrentUser'];
+
+      if (currentUser) {
+         this.currentUser = currentUser;
+         return;
+      }
+
       UsersService.Current().then(r => {
          this.currentUser = r.data;
          store.dispatch('login/setCurrentUser', r.data);
       });
+   }
+
+   public edit(): void {
+      console.log(this.currentUser);
    }
 }

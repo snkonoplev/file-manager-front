@@ -1,11 +1,10 @@
 <div>
-    <Toolbar class="p-mb-4">
+    <Toolbar class="p-mb-4" v-if="isAdmin">
         <template #start>
-            <Button label="New" icon="pi pi-plus" class="p-button-success p-mr-2" @click="openNew" />
-            <Button label="Remove" @click="deleteSelected" :loading="deleteInProgress" :disabled="selectedUsers.length === 0" icon="pi pi-times" class="p-button-danger p-mr-2"/>
+            <Button label="New" icon="pi pi-plus" class="p-button-success p-mr-2" @click="openNew" />           
         </template>
     </Toolbar>
-    <DataTable :value="users" v-model:selection="selectedUsers" responsiveLayout="scroll" :loading="isLoading" @row-dblclick="editRow">
+    <DataTable :value="users" responsiveLayout="scroll" :loading="isLoading">
         <template #header>
             <div class="p-d-flex p-jc-between p-ai-center">
                 <h3 class="p-mb-2 p-m-md-0 p-as-md-center">Users</h3>
@@ -14,7 +13,6 @@
         <template #empty>
             No customers found.
         </template>
-        <Column selectionMode="multiple" style="width: 3rem" :exportable="false"></Column>
         <Column field="id" header="Id"></Column>
         <Column field="created" header="Created">
             <template #body="{data}">
@@ -37,5 +35,21 @@
                 <Checkbox v-model="data.isActive" :binary="true" :disabled="true" />
             </template>
         </Column>
+        <Column :exportable="false" style="min-width:8rem" v-if="isAdmin">
+            <template #body="{data}">
+                <Button icon="pi pi-pencil" :disabled="data.name==='admin'" class="p-button-rounded p-button-success p-mr-2" @click="editUser(data)" />
+                <Button icon="pi pi-trash" :disabled="data.name==='admin'" class="p-button-rounded p-button-warning" @click="confirmDeleteUser(data)" />
+            </template>
+        </Column>
     </DataTable>
+    <Dialog v-model:visible="deleteUsersDialog" :style="{width: '450px'}" header="Confirm" :modal="true">
+        <div class="confirmation-content">
+            <i class="pi pi-exclamation-triangle p-mr-3" style="font-size: 2rem" />
+            <span>Are you sure you want to delete the this user?</span>
+        </div>
+        <template #footer>
+            <Button label="No" icon="pi pi-times" class="p-button-text" @click="deleteUsersDialog = false"/>
+            <Button label="Yes" icon="pi pi-check" class="p-button-text" @click="deleteUser" />
+        </template>
+    </Dialog>
 </div>
