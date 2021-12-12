@@ -22,6 +22,11 @@ const routes: Array<RouteRecordRaw> = [
     name: 'UserEdit',
     component: () => import(/* webpackChunkName: "user-edit" */ '../users/edit/UserEdit.vue')
   },
+  {
+    path: '/users/change-password',
+    name: 'ChangePassword',
+    component: () => import(/* webpackChunkName: "change-password" */ '../users/change-password/UserChangePassword.vue')
+  },
 ]
 
 const router = createRouter({

@@ -59,7 +59,7 @@ export default class Nav extends Vue {
       });
    }
 
-   public edit(): void {
-      console.log(this.currentUser);
+   public changePassword(): void {
+      this.$router.push({ name: 'ChangePassword' });
    }
 }

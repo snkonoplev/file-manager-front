@@ -1,5 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
 import { User } from '../users/User';
+import { ChangePassword } from './ChangePassword';
 
 class UsersService {
 
@@ -23,8 +24,12 @@ class UsersService {
         return axios.get(`/users/${id}`);
     }
 
-    public Edit(user: User): Promise<AxiosResponse<number>>{
+    public Edit(user: User): Promise<AxiosResponse<number>> {
         return axios.put('/users', { ...user });
+    }
+
+    public ChangePassword(model: ChangePassword): Promise<AxiosResponse<number>> {
+        return axios.put('/users/change-password', { ...model });
     }
 }
 
