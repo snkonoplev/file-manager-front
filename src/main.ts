@@ -21,7 +21,7 @@ axios.interceptors.request.use(function (config) {
     }
     return config;
 }, function (error) {
-    notify({ type: 'error', title: 'HTTP Request Error', text: error.message, duration: 10000 });
+    notify({ type: 'error', title: 'HTTP Request Error', text: error.message, duration: 3000 });
     return Promise.reject(error);
 });
 axios.interceptors.response.use(function (response) {
@@ -33,7 +33,7 @@ axios.interceptors.response.use(function (response) {
         message = error.response?.data;
     }
 
-    notify({ type: 'error', title: 'HTTP Response Error', text: message, duration: 10000 });
+    notify({ type: 'error', title: 'HTTP Response Error', text: message, duration: 3000 });
 
     if (error.code === 401) {
         router.push({ name: 'Login' });
