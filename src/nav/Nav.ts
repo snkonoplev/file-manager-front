@@ -5,6 +5,7 @@ import store from '../store';
 import { User } from '../users/User';
 import UsersService from '../users/UsersService';
 import LoginService from '../login/LoginService';
+import { useCookies } from "vue3-cookies";
 
 @Options({
    components: {
@@ -23,6 +24,7 @@ export default class Nav extends Vue {
 
    public currentUser: User = {};
    public currentRote = '';
+   public cookies = useCookies();
 
    public items = [
       {
@@ -50,6 +52,7 @@ export default class Nav extends Vue {
 
    public clearToken(): void {
       store.dispatch('login/removeToken');
+      this.cookies.cookies.remove('jwt');
    }
 
    public mounted(): void {
@@ -72,7 +75,6 @@ export default class Nav extends Vue {
    }
 
    public openTransmission(): void {
-      LoginService.SetCookie().then(() => console.log('set'));
-      window.open('/transmission/web/', '_blank');
+      LoginService.SetCookie().then(() => window.open('/transmission/web/', '_blank'));
    }
 }
