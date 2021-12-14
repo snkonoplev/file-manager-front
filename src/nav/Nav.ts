@@ -4,6 +4,7 @@ import Button from 'primevue/button';
 import store from '../store';
 import { User } from '../users/User';
 import UsersService from '../users/UsersService';
+import LoginService from '../login/LoginService';
 
 @Options({
    components: {
@@ -29,6 +30,13 @@ export default class Nav extends Vue {
          icon: 'pi pi-fw pi-users',
          to: '/users',
          disabled: (): boolean => this.currentRote === 'Users'
+      },
+      {
+         label: 'Transmission',
+         icon: 'pi pi-cloud-download',
+         command: (): void => {
+            this.openTransmission();
+         },
       },
       {
          label: 'Quit',
@@ -61,5 +69,10 @@ export default class Nav extends Vue {
 
    public changePassword(): void {
       this.$router.push({ name: 'ChangePassword' });
+   }
+
+   public openTransmission(): void {
+      LoginService.SetCookie().then(() => console.log('set'));
+      window.open('/transmission/web/', '_blank');
    }
 }
