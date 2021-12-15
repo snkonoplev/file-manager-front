@@ -3,12 +3,12 @@ import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
 import { User } from './User';
 import UsersService from './UsersService';
-import moment from 'moment';
 import Checkbox from 'primevue/checkbox';
 import Toolbar from 'primevue/toolbar';
 import Button from 'primevue/button';
 import Dialog from 'primevue/dialog';
 import store from '../store';
+import { DateTime } from 'luxon';
 
 @Options({
     components: {
@@ -54,7 +54,7 @@ export default class Users extends Vue {
         if (timeStamp === null)
             return '';
 
-        return moment.unix(timeStamp).format('DD.MM.YYYY HH:mm:ss');
+        return DateTime.fromSeconds(timeStamp).toLocal().toFormat('dd.MM.yyyy HH:mm:ss');
     }
 
     public openNew(): void {
