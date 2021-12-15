@@ -3,6 +3,10 @@ import store from '../store'
 
 const routes: Array<RouteRecordRaw> = [
   {
+    path: '/',
+    redirect: '/users'
+  },
+  {
     path: '/users',
     name: 'Users',
     component: () => import(/* webpackChunkName: "users" */ '../users/Users.vue')

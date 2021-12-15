@@ -7,11 +7,7 @@ class LoginService {
     public Login(model: LoginModel): Promise<AxiosResponse<LoginResponseModel>> {
         return axios.post('/login', model);
     }
-
-    public SetCookie(): Promise<void> {
-        return axios.get('/set-cookie');
-    }
-
+    
 }
 
 export default new LoginService();

@@ -4,7 +4,6 @@ import Button from 'primevue/button';
 import store from '../store';
 import { User } from '../users/User';
 import UsersService from '../users/UsersService';
-import LoginService from '../login/LoginService';
 import { useCookies } from "vue3-cookies";
 
 @Options({
@@ -52,7 +51,6 @@ export default class Nav extends Vue {
 
    public clearToken(): void {
       store.dispatch('login/removeToken');
-      this.cookies.cookies.remove('jwt');
    }
 
    public mounted(): void {
@@ -75,6 +73,15 @@ export default class Nav extends Vue {
    }
 
    public openTransmission(): void {
-      LoginService.SetCookie().then(() => window.open('/transmission/web/', '_blank'));
+      const token = store.getters['login/getToken'] as string | undefined;
+      const expires = store.getters['login/getExpire'] as number | undefined;
+      const url = process.env.NODE_ENV === 'development' ? 'http://localhost:5000/transmission/web/' : '/transmission/web/';
+
+      if (token && expires && expires > new Date().valueOf()) {
+         this.cookies.cookies.set('jwt', token, new Date(expires), '/transmission');
+         window.open(url, '_blank');
+      } else {
+         window.location.reload();
+      }
    }
 }
