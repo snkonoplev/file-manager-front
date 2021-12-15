@@ -27,6 +27,12 @@ export default class Nav extends Vue {
 
    public items = [
       {
+         label: 'System',
+         icon: 'pi pi-fw pi-server',
+         to: '/',
+         disabled: (): boolean => this.currentRote === 'System'
+      },
+      {
          label: 'Users',
          icon: 'pi pi-fw pi-users',
          to: '/users',

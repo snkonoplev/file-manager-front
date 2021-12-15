@@ -49,7 +49,7 @@ export default class Login extends Vue {
             store.dispatch('login/setToken', r.data);
          }).finally(() => {
             this.isLoading = false;
-            this.$router.push({ name: 'Users' });
+            this.$router.push({ name: 'System' });
          });
    }
 }

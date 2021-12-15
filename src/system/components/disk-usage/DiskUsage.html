@@ -1,0 +1,13 @@
+<Card>
+    <template #title>
+        Disk Usage
+    </template>
+    <template #content>
+        <ProgressBar :value="usedPercent">
+            {{usedPercent}}%
+        </ProgressBar>
+    </template>
+    <template #footer>
+        Size: {{size}} Used: {{used}} Available: {{available}}
+    </template>
+</Card>
