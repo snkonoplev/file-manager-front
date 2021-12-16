@@ -6,11 +6,11 @@
         </div>
     </template>
     <template #content>
-        <ProgressBar :value="usedPercent" :mode="mode">
+        <ProgressBar :value="usedPercent" :mode="mode" :showValue="false">
             {{usedPercent}}%
         </ProgressBar>
     </template>
     <template #footer>
-        Used: {{usedPercent}}% Total: {{total}} Used: {{used}} free: {{free}} Cached: {{cached}} Available: {{available}}
+        Used: {{usedPercent}}% Total: {{total}} Used: {{used}} Free: {{free}} Cached: {{cached}} Available: {{available}}
     </template>
 </Card>

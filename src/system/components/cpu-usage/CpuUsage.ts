@@ -20,8 +20,8 @@ export default class CpuUsage extends Vue {
     public get usedPercent(): number {
 
         if (this.usage.total && this.usage.idle) {
-            const usage = (this.usage.total - this.usage.idle) / this.usage.total;
-            return Math.round(usage * 10000) / 10000;
+            const usage = ((this.usage.total - this.usage.idle) / this.usage.total) * 100;
+            return Math.round(usage * 100) / 100;
         }
 
         return 0;
