@@ -1,6 +1,6 @@
 import { Options, Vue } from 'vue-class-component';
 import ProgressBar from 'primevue/progressbar';
-import { DiskUsageModel } from '@/system/entities/DiskUsage';
+import { MemoryUsageModel } from '@/system/entities/MemoryUsage';
 import SystemService from '@/system/SystemService';
 import Card from 'primevue/card';
 import prettyBytes from 'pretty-bytes';
@@ -13,25 +13,25 @@ import Button from 'primevue/button';
         Button
     },
 })
-export default class DiskUsage extends Vue {
+export default class MemoryUsage extends Vue {
 
-    public usage: DiskUsageModel = {};
+    public usage: MemoryUsageModel = {};
     public loading = false;
 
     public get usedPercent(): number {
 
-        if (this.usage.usage) {
-            const usage = this.usage.usage * 100;
+        if (this.usage.total && this.usage.available) {
+            const usage = (this.usage.total - this.usage.available) / this.usage.total;
             return Math.round(usage * 100) / 100;
         }
 
         return 0;
     }
 
-    public get size(): string {
+    public get total(): string {
 
-        if (this.usage.size) {
-            return prettyBytes(this.usage.size);
+        if (this.usage.total) {
+            return prettyBytes(this.usage.total);
         }
 
         return 'NaN';
@@ -55,6 +55,24 @@ export default class DiskUsage extends Vue {
         return 'NaN';
     }
 
+    public get cached(): string {
+
+        if (this.usage.cached) {
+            return prettyBytes(this.usage.cached);
+        }
+
+        return 'NaN';
+    }
+
+    public get free(): string {
+
+        if (this.usage.free) {
+            return prettyBytes(this.usage.free);
+        }
+
+        return 'NaN';
+    }
+
     public get mode(): string {
 
         if (this.loading) {
@@ -71,7 +89,7 @@ export default class DiskUsage extends Vue {
 
     public refresh(): void {
         this.loading = true;
-        SystemService.DiskUsage().then(r => {
+        SystemService.MemoryUsage().then(r => {
             this.usage = { ...r.data };
             this.loading = false;
         });

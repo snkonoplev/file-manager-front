@@ -1,14 +1,16 @@
 <Card>
     <template #title>
         <div class="p-d-flex p-jc-between p-ai-center">
-            Disk Usage
+            Common Info
             <Button icon="pi pi-refresh" class="p-button-rounded p-button-outlined" @click="refresh" />
         </div>
     </template>
     <template #content>
-        <ProgressBar :value="usedPercent" :mode="mode" :showValue="false"></ProgressBar>
-    </template>
-    <template #footer>
-        Used: {{usedPercent}}% Size: {{size}} Used: {{used}} Available: {{available}}
+        <div>
+            Avd 1: {{round(load.loadavg1)}} Load Avd 5: {{round(load.loadavg5)}} Load Avd 15: {{round(load.loadavg15)}}
+        </div>
+        <div>
+            Up Time: {{up}}
+        </div>
     </template>
 </Card>

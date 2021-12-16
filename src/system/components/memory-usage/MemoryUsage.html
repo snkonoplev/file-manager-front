@@ -1,14 +1,16 @@
 <Card>
     <template #title>
         <div class="p-d-flex p-jc-between p-ai-center">
-            Disk Usage
+            Memory Usage
             <Button icon="pi pi-refresh" class="p-button-rounded p-button-outlined" @click="refresh" />
         </div>
     </template>
     <template #content>
-        <ProgressBar :value="usedPercent" :mode="mode" :showValue="false"></ProgressBar>
+        <ProgressBar :value="usedPercent" :mode="mode">
+            {{usedPercent}}%
+        </ProgressBar>
     </template>
     <template #footer>
-        Used: {{usedPercent}}% Size: {{size}} Used: {{used}} Available: {{available}}
+        Used: {{usedPercent}}% Total: {{total}} Used: {{used}} free: {{free}} Cached: {{cached}} Available: {{available}}
     </template>
 </Card>
