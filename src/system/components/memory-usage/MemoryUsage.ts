@@ -20,8 +20,8 @@ export default class MemoryUsage extends Vue {
 
     public get usedPercent(): number {
 
-        if (this.usage.total && this.usage.available) {
-            const usage = ((this.usage.total - this.usage.available) / this.usage.total) * 100;
+        if (this.usage.total && this.usage.used) {
+            const usage = 100 - (((this.usage.total - this.usage.used) / this.usage.total) * 100);
             return Math.round(usage * 100) / 100;
         }
 
