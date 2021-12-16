@@ -2,7 +2,7 @@
     <template #title>
         <div class="p-d-flex p-jc-between p-ai-center">
             Common Info
-            <Button icon="pi pi-refresh" class="p-button-rounded p-button-outlined" @click="refresh" />
+            <Button :disabled="loading" icon="pi pi-refresh" class="p-button-rounded p-button-outlined" @click="refresh" />
         </div>
     </template>
     <template #content>
