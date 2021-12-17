@@ -4,7 +4,8 @@ import { UpTimeModel } from '@/system/entities/UpTime';
 import SystemService from '@/system/SystemService';
 import Card from 'primevue/card';
 import Button from 'primevue/button';
-import { DateTime } from 'luxon';
+import { DateTime, Interval } from 'luxon';
+import humanizeDuration from 'humanize-duration';
 
 @Options({
     components: {
@@ -21,7 +22,12 @@ export default class CommonInfo extends Vue {
     public get up(): string {
 
         if (this.upTime.upTime) {
-            return DateTime.now().plus({ milliseconds: this.upTime.upTime }).diffNow().toFormat('h:mm:ss');
+            const formatted = Interval
+                .fromDateTimes(DateTime.now(), DateTime.now().plus({ milliseconds: this.upTime.upTime }))
+                .toDuration()
+                .valueOf();
+
+            return humanizeDuration(formatted, { language: "en" });
         }
 
         return "NaN";
