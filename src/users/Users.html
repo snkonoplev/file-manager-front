@@ -35,7 +35,7 @@
                 <Checkbox v-model="data.isActive" :binary="true" :disabled="true" />
             </template>
         </Column>
-        <Column :exportable="false" style="min-width:8rem" v-if="isAdmin">
+        <Column :exportable="false" style="min-width:8rem" v-if="isAdmin" header="Actions">
             <template #body="{data}">
                 <Button icon="pi pi-pencil" :disabled="data.name==='admin'" class="p-button-rounded p-button-success p-mr-2" @click="editUser(data)" />
                 <Button icon="pi pi-trash" :disabled="data.name==='admin'" class="p-button-rounded p-button-warning" @click="confirmDeleteUser(data)" />

@@ -1,0 +1,14 @@
+<TreeTable :value="nodes" :lazy="true" :loading="loading" @node-expand="onExpand" :expandedKeys="expandedKeys">
+    <Column field="name" header="Name" :expander="true"></Column>
+    <Column field="size" header="Size">
+        <template #body="{node}">
+            {{prettyBytes(node.data.size, node.data.type)}}
+        </template>
+    </Column>
+    <Column field="type" header="Type"></Column>
+    <Column header="Actions">
+        <template #body="{node}">
+            <Button icon="pi pi-download" class="p-button-rounded p-button-success p-mr-2" @click="onDownload(node)"/>
+        </template>
+    </Column>
+</TreeTable>

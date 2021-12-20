@@ -46,6 +46,12 @@ export default class Nav extends Vue {
          },
       },
       {
+         label: 'Storage',
+         icon: 'pi pi-folder',
+         to: '/storage',
+         disabled: (): boolean => this.currentRote === 'Storage'
+      },
+      {
          label: 'Quit',
          icon: 'pi pi-fw pi-power-off',
          to: '/login',
