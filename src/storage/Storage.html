@@ -8,7 +8,7 @@
     <Column field="type" header="Type"></Column>
     <Column header="Actions">
         <template #body="{node}">
-            <Button icon="pi pi-download" class="p-button-rounded p-button-success p-mr-2" @click="onDownload(node)"/>
+            <Button v-if="node.data.type === 'File'" icon="pi pi-download" class="p-button-rounded p-button-success p-mr-2" @click="onDownload(node)"/>
         </template>
     </Column>
 </TreeTable>

@@ -5,6 +5,7 @@ import StorageService from './StorageService';
 import { DirectoryDataWrapper } from './entities/DirectoryDataWrapper';
 import prettyBytes from 'pretty-bytes';
 import Button from 'primevue/button';
+import fileDownload from 'js-file-download';
 
 @Options({
     components: {
@@ -31,9 +32,13 @@ export default class Storage extends Vue {
         return prettyBytes(value);
     }
 
-    // eslint-disable-next-line
+
     public onDownload(node: DirectoryDataWrapper): void {
-        //console.log(node);
+        if (node.key && node.data && node.data?.name) {
+            const fileName = node.data?.name;
+            StorageService.DownloadFile(node.key)
+                .then(response => fileDownload(response.data, fileName));
+        }
     }
 
     public onExpand(node: DirectoryDataWrapper): void {
