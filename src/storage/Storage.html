@@ -1,4 +1,4 @@
-<TreeTable :value="nodes" :lazy="true" :loading="loading" @node-expand="onExpand" :expandedKeys="expandedKeys">
+<TreeTable :value="nodes" :lazy="true" :loading="loading" @node-expand="onExpand" :autoLayout="true" :expandedKeys="expandedKeys" :resizableColumns="true" columnResizeMode="fit">
     <Column field="name" header="Name" :expander="true"></Column>
     <Column field="size" header="Size">
         <template #body="{node}">
