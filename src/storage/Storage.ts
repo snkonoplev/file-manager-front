@@ -41,7 +41,7 @@ export default class Storage extends Vue {
             const url = process.env.NODE_ENV === 'development' ? `http://localhost:5000/api/storage/download/${node.key}` : `/api/storage/download/${node.key}`;
             if (token && expires && expires > new Date().valueOf()) {
                 this.cookies.cookies.set('jwt', token, new Date(expires), '/api/storage/download');
-                window.open(url);
+                window.open(url, '_blank');
             } else {
                 window.location.reload();
             }

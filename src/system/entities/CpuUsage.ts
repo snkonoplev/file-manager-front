@@ -1,7 +1,5 @@
-export class CpuUsageModel {    
-    count?: number;
-    total?: number;
-    user?: number;
-    system?: number;
-    idle?: number;
+export class CpuUsageModel {
+    countLogical?: number;
+    countPhysical?: number;
+    percent?: number[];
 }

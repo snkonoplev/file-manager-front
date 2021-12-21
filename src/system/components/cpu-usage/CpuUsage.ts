@@ -19,22 +19,30 @@ export default class CpuUsage extends Vue {
 
     public get usedPercent(): number {
 
-        if (this.usage.total && this.usage.idle) {
-            const usage = ((this.usage.total - this.usage.idle) / this.usage.total) * 100;
-            return Math.round(usage * 100) / 100;
+        if (this.usage.percent && this.usage.percent.length > 0) {
+            return Math.round(this.usage.percent[0] * 100) / 100;
         }
 
         return 0;
     }
 
-    public get count(): number {
+    public get countLogical(): number {
 
-        if (this.usage.count) {
-            return this.usage.count;
+        if (this.usage.countLogical) {
+            return this.usage.countLogical;
         }
 
         return 0;
-    }    
+    }
+
+    public get countPhysical(): number {
+
+        if (this.usage.countPhysical) {
+            return this.usage.countPhysical;
+        }
+
+        return 0;
+    }
 
     public get mode(): string {
 

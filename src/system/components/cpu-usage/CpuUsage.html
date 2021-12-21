@@ -9,6 +9,6 @@
         <ProgressBar :value="usedPercent" :mode="mode" :showValue="false"></ProgressBar>
     </template>
     <template #footer>
-        Used: {{usedPercent}}% Cores: {{count}}
+        Used: {{usedPercent}}% Physical Cores: {{countPhysical}} Logical Cores: {{countLogical}}
     </template>
 </Card>
