@@ -6,11 +6,13 @@ import axios from 'axios';
 import PrimeVue from 'primevue/config';
 import Notifications from '@kyvg/vue3-notification'
 import { notify } from "@kyvg/vue3-notification";
+import Loading from 'vue-loading-overlay';
 
 import 'primeflex/primeflex.min.css';
-import 'primevue/resources/primevue.min.css'
-import 'primevue/resources/themes/saga-blue/theme.css'
-import 'primeicons/primeicons.css'
+import 'primevue/resources/primevue.min.css';
+import 'primevue/resources/themes/saga-blue/theme.css';
+import 'primeicons/primeicons.css';
+import 'vue-loading-overlay/dist/vue-loading.css';
 
 axios.defaults.withCredentials = true;
 axios.defaults.baseURL = process.env.NODE_ENV === 'development' ? 'http://localhost:5000/api/' : '/api/';
@@ -48,4 +50,5 @@ app
     .use(router)
     .use(PrimeVue)
     .use(Notifications)
+    .use(Loading)
     .mount('#app');

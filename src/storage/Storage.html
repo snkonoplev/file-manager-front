@@ -1,14 +1,43 @@
-<TreeTable :value="nodes" :lazy="true" :loading="loading" @node-expand="onExpand" :autoLayout="true" :expandedKeys="expandedKeys" :resizableColumns="true" columnResizeMode="fit">
-    <Column field="name" header="Name" :expander="true"></Column>
-    <Column field="size" header="Size">
-        <template #body="{node}">
-            {{prettyBytes(node.data.size, node.data.type)}}
+<div>
+    <Toolbar>
+        <template #start>
+            <Button label="Upload Files" icon="pi pi-upload" class="p-button-success p-mr-2"
+                @click="openUploadDialog" />
+            <Button label="Create Folder" icon="pi pi-folder" class="p-button-success p-mr-2"
+                @click="openMkDirDialog" />
         </template>
-    </Column>
-    <Column field="type" header="Type"></Column>
-    <Column header="Actions">
-        <template #body="{node}">
-            <Button v-if="node.data.type === 'File'" icon="pi pi-download" class="p-button-rounded p-button-success p-mr-2" @click="onDownload(node)"/>
+    </Toolbar>
+    <TreeTable :value="nodes" :lazy="true" :loading="loading" @node-expand="onExpand" :autoLayout="true"
+        :expandedKeys="expandedKeys" :resizableColumns="true" columnResizeMode="fit">
+        <Column field="name" header="Name" :expander="true"></Column>
+        <Column field="size" header="Size">
+            <template #body="{node}">
+                {{prettyBytes(node.data.size, node.data.type)}}
+            </template>
+        </Column>
+        <Column field="type" header="Type"></Column>
+        <Column header="Actions">
+            <template #body="{node}">
+                <Button v-if="node.leaf || (node.children && node.children.length === 0)" icon="pi pi-trash"
+                    :disabled="loading" class="p-button-rounded p-button-danger p-mr-2" @click="onDelete(node)" />
+                <Button v-if="node.data.type === 'File'" icon="pi pi-download"
+                    class="p-button-rounded p-button-success p-mr-2" @click="onDownload(node)" />
+            </template>
+        </Column>
+    </TreeTable>
+    <Dialog header="Upload Files" v-model:visible="showUploadDialog" :style="{width: '50vw'}">
+        <Dropdown v-model="selectedFolder" :options="foldersList" class="p-mb-5" :style="{width: '100%'}"
+            placeholder="Select Folder" />
+        <FileUpload :disabled="!selectedFolder" name="demo[]" :customUpload="true" :multiple="true"
+            :showCancelButton="false" @uploader="uploader" />
+    </Dialog>
+    <Dialog header="Create Folder" v-model:visible="showMkDirDialog" :style="{width: '50vw'}">
+        <Dropdown v-model="selectedFolder" :options="foldersList" class="p-mb-5" :style="{width: '100%'}"
+            placeholder="Parent Folder" />
+        <InputText id="folderName" type="text" v-model="folderToCreate" placeholder="Folder Name" :style="{width: '100%'}" />
+        <template #footer>
+            <Button label="Cancel" icon="pi pi-times" @click="closeMkDirDialog" class="p-button-text"/>
+            <Button :disabled="!folderToCreate || !selectedFolder" label="Create" icon="pi pi-check" @click="makeDirectory" autofocus />
         </template>
-    </Column>
-</TreeTable>
+    </Dialog>
+</div>
