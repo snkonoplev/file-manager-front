@@ -1,0 +1,46 @@
+<div class="p-grid p-flex-column p-ai-center vertical-container" style="text-align: center;">
+    <div class="p-col-12 p-mt-5 p-mb-5" style="height: 30%;">
+        <Image src="/logo.png" alt="Image Text"></Image>
+    </div>
+    <div class="p-col-12" style="height: 40%;">
+        <div class="p-grid p-flex-row-reverse">
+            <div class="p-col-4">
+            </div>
+            <div class="p-col-4">
+                <div class="p-d-flex p-jc-center">
+                    <div class="card">
+                        <form id="loginForm" @submit.prevent="sendForm" method="post">
+                            <div class="p-field">
+                                <div class="p-float-label">
+                                    <InputText @keyup.enter="sendForm" id="userLogin" v-model="v$.form.username.$model"
+                                        :disabled="isLoading" :class="{ 'p-invalid': v$.form.username.$errors.length }"
+                                        style="width: 100%;" />
+                                    <label for="userLogin">Login</label>
+                                </div>
+                                <small v-for="(error, index) of v$.form.username.$errors" :key="index"
+                                    class="p-error">{{
+                                    error.$message }}</small>
+                            </div>
+                            <div class="p-field p-mt-4">
+                                <div class="p-float-label">
+                                    <Password id="userPassword" @keyup.enter="sendForm" :disabled="isLoading"
+                                        v-model="v$.form.password.$model" :feedback="false"
+                                        :class="{ 'p-invalid': v$.form.password.$errors.length }"
+                                        style="width: 100%;" />
+                                    <label for="userPassword">Password</label>
+                                </div>
+                                <small v-for="(error, index) of v$.form.password.$errors" :key="index"
+                                    class="p-error">{{ error.$message }}</small>
+                            </div>
+                            <Button :disabled="v$.form.$invalid" type="submit" label="Log In" :loading="isLoading" />
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="p-col-4">
+            </div>
+        </div>
+    </div>
+    <div class="p-col-12" style="height: 30%;">
+    </div>
+</div>
