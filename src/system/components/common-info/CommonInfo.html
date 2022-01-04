@@ -1,0 +1,16 @@
+<Card>
+    <template #title>
+        <div class="p-d-flex p-jc-between p-ai-center">
+            Common Info
+            <Button :disabled="loading" icon="pi pi-refresh" class="p-button-rounded p-button-outlined" @click="refresh" />
+        </div>
+    </template>
+    <template #content>
+        <div>
+            Load Avd 1: {{round(load.loadavg1)}} Load Avd 5: {{round(load.loadavg5)}} Load Avd 15: {{round(load.loadavg15)}}
+        </div>
+        <div>
+            Up Time: {{up}}
+        </div>
+    </template>
+</Card>

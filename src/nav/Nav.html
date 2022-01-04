@@ -1,0 +1,10 @@
+<div id="nav">
+    <Menubar :model="items">
+        <template #start>
+            <img alt="logo" src="/logo.png" height="40" class="p-mr-2">
+        </template>
+        <template #end>
+            <Button icon="pi pi-user" :label="currentUser.name" class="p-button-rounded p-button-info" @click="changePassword" />
+        </template>
+    </Menubar>
+</div>

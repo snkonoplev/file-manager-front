@@ -1,0 +1,14 @@
+<Card>
+    <template #title>
+        <div class="p-d-flex p-jc-between p-ai-center">
+            CPU Usage
+            <Button :disabled="loading" icon="pi pi-refresh" class="p-button-rounded p-button-outlined" @click="refresh" />
+        </div>
+    </template>
+    <template #content>
+        <ProgressBar :value="usedPercent" :mode="mode" :showValue="false"></ProgressBar>
+    </template>
+    <template #footer>
+        Used: {{usedPercent}}% Physical Cores: {{countPhysical}} Logical Cores: {{countLogical}}
+    </template>
+</Card>
